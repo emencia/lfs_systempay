@@ -1,0 +1,3 @@
+include README.txt
+recursive-include lfs_systempay/locale *
+recursive-include lfs_systempay/templates *

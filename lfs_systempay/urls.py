@@ -1,0 +1,22 @@
+# django imports
+from django.conf.urls.defaults import *
+
+
+urlpatterns = patterns('lfs_systempay.views',
+    url(r'^redirect_to_processor/(?P<order_id>\d*)/$', "wait_for_redirect", name="systempay-wait-for-redirect"),
+    url(r'^systempay_delayed$', 'systempay_delayed', name='systempay-delayed-0'),
+    url(r'^systempay_delayed/$', 'systempay_delayed', name='systempay-delayed'),
+
+
+    url(r'^systempay_return/$', 'systempay_return_url', name='systempay-return-url', kwargs={'action': 'return'}),
+    url(r'^systempay_return_cancel/$', 'systempay_return_url', name='systempay-return-cancel-url',
+        kwargs={'action': 'cancel'}),
+    url(r'^systempay_return_error/$', 'systempay_return_url', name='systempay-return-error-url',
+        kwargs={'action': 'error'}),
+    url(r'^systempay_return_referral/$', 'systempay_return_url', name='systempay-return-referral-url',
+        kwargs={'action': 'referral'}),
+    url(r'^systempay_return_refused/$', 'systempay_return_url', name='systempay-return-refused-url',
+        kwargs={'action': 'refused'}),
+    url(r'^systempay_return_success/$', 'systempay_return_url', name='systempay-return-success-url',
+        kwargs={'action': 'success'}),
+)

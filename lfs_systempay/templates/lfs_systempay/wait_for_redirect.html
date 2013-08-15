@@ -1,0 +1,103 @@
+{% extends "lfs/base.html" %}
+{% load i18n lfs_tags %}
+
+{% block title %}
+    {% trans 'Redirecting to Systempay' %} - {{ block.super }}
+{% endblock %}
+
+{% block section %}redirect-to-systempay{% endblock %}
+
+{% block breadcrumbs %}
+    {% breadcrumbs "Systempay" %}
+{% endblock %}
+
+{% block extra_js %}
+    {% if order %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('form.systempay').submit();
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block wrapper %}
+    <h1>{% trans 'Systempay' %}</h1>
+    {% if order %}
+        <form class="systempay" method="post" action="{{ transaction_url }}">
+            <p class="central-message">
+                {% trans "Please wait while you're redirected to Systempay." %}
+                <input type="submit" value="{% trans "or click here" %}" /> {% trans "to be redirected immediately." %}
+
+
+                <input type="hidden" name="vads_action_mode" value="{{ vads_action_mode }}" />
+                <input type="hidden" name="vads_amount" value="{{ vads_amount }}" />
+                <input type="hidden" name="vads_contrib" value="{{ vads_contrib }}" />
+                <input type="hidden" name="vads_ctx_mode" value="{{ vads_ctx_mode }}" />
+                <input type="hidden" name="vads_currency" value="{{ vads_currency }}" />
+
+                <input type="hidden" name="vads_cust_name" value="{{ vads_cust_name }}" />
+                <input type="hidden" name="vads_cust_email" value="{{ vads_cust_email }}" />
+                {% if vads_cust_id %}
+                    <input type="hidden" name="vads_cust_id" value="{{ vads_cust_id }}" />
+                {% endif %}
+                <input type="hidden" name="vads_cust_address" value="{{ vads_cust_address }}" />
+                <input type="hidden" name="vads_cust_city" value="{{ vads_cust_city }}" />
+                <input type="hidden" name="vads_cust_zip" value="{{ vads_cust_zip }}" />
+
+                <input type="hidden" name="vads_order_id" value="{{ vads_order_id }}" />
+
+                <input type="hidden" name="vads_page_action" value="{{ vads_page_action }}" />
+                <input type="hidden" name="vads_payment_cards" value="{{ vads_payment_cards }}" />
+                <input type="hidden" name="vads_payment_config" value="{{ vads_payment_config }}" />
+                <input type="hidden" name="vads_return_mode" value="{{ vads_return_mode }}" />
+
+                <input type="hidden" name="vads_site_id" value="{{ vads_site_id }}" />
+                <input type="hidden" name="vads_trans_date" value="{{ vads_trans_date }}" />
+                <input type="hidden" name="vads_trans_id" value="{{ vads_trans_id }}" />
+
+                <input type="hidden" name="vads_version" value="{{ vads_version }}" />
+
+                <input type="hidden" name="vads_url_cancel" value="{{ vads_url_cancel }}" />
+                <input type="hidden" name="vads_url_error" value="{{ vads_url_error }}" />
+                <input type="hidden" name="vads_url_referral" value="{{ vads_url_referral }}" />
+                <input type="hidden" name="vads_url_refused" value="{{ vads_url_refused }}" />
+                <input type="hidden" name="vads_url_success" value="{{ vads_url_success }}" />
+                <input type="hidden" name="vads_url_return" value="{{ vads_url_return }}" />
+
+
+
+vads_language a2 12 F
+vads_order_id an..32 13 F
+vads_order_info an..255 14 F
+vads_order_info2 an..255 14 F
+vads_order_info3 an..255 14 F
+vads_page_action 46 X
+vads_payment_cards an..127 08 F
+vads_payment_config 07 X
+signature an40 X
+vads_return_mode 48 C(2)
+vads_site_id n8 02 X
+vads_theme_config ans..255 32 F
+vads_trans_date n14 04 X
+vads_trans_id n6 03 X
+vads_validation_mode n..1 05 F
+vads_version 01 X
+vads_url_success ans..127 24 F
+vads_url_referral ans..127 26 F
+vads_url_refused ans..127 25 F
+vads_url_cancel ans..127 27 F
+vads_url_error ans..127 29 F
+vads_url_return ans..127 28 F
+vads_user_info ans..255 61 .
+vads_contracts
+
+
+            </p>
+        </form>
+    {% else %}
+        <p class="central-message">
+            {% trans "It is not possible to pay for this order. Are you sure that it is not paid already? Please contact shop administration if you consider this an error." %}
+        </p>
+    {% endif %}
+{% endblock %}

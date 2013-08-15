@@ -1,0 +1,55 @@
+{% extends "lfs/base.html" %}
+{% load i18n lfs_tags %}
+
+{% block title %}
+    {% trans 'Thank you!' %} - {{ block.super }}
+{% endblock %}
+
+{% block section %}thank-you{% endblock %}
+
+{% block breadcrumbs %}
+    {% breadcrumbs _("Thank you!") %}
+{% endblock %}
+
+{% block wrapper %}
+    {% url lfs_shop_view as shopping_url %}
+    {% if action == 'success' %}
+        <h1>{% trans 'Thank you!' %}</h1>
+
+        <p class="central-message">
+            {% trans 'Your order has been paid.' %}.
+        </p>
+    {% else %}
+        <h1 class="error">{% trans 'Invalid transaction' %}</h1>
+
+        {% if action == 'cancel' %}
+            <p class="central-message">{% trans "Payment has been cancelled!" %}</p>
+        {% endif %}
+
+        {% if action == 'referral' %}
+            <p class="central-message">{% trans "Payment has not been processed due to rejected authorization request!" %}</p>
+        {% endif %}
+
+        {% if action == 'error' %}
+            <p class="central-message">{% trans "Payment has not been processed due to the internal error of payment platform!" %}</p>
+        {% endif %}
+
+        {% if action == 'refused' %}
+            <p class="central-message">{% trans "Payment has been refused!" %}</p>
+        {% endif %}
+
+        {% if action == 'return' %}
+            <p class="central-message">{% trans "You've been redirected back from payment processor." %}</p>
+        {% endif %}
+    {% endif %}
+    <a class="button shopping-button"
+       href="{{ shopping_url }}">
+        {% trans 'Go back to shop' %}
+    </a>
+
+{% endblock %}
+
+{% block google-analytics-tracking %}{% endblock %}
+{% block google-analytics-ecommerce %}
+    {% google_analytics_ecommerce %}
+{% endblock %}

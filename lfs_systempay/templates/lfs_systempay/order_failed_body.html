@@ -1,0 +1,7 @@
+{% load i18n %}{% trans "Payment for order has failed in Systempay" %}
+
+{% trans "Error message" %}: {{ error_message }}
+
+{{ error }}
+
+{% include "lfs/mail/order_received_mail.txt" %}
