@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import simplejson
 from django.core.mail.message import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.utils import simplejson
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -71,7 +71,9 @@ def systempay_return_url(request, action=''):
 
 
 @csrf_exempt
-def systempay_delayed(request):
+def systempay_delayed(request, uid):
+    if uid != settings.SYSTEMPAY_BACK_URL_SECRET_UID:
+        raise Http404
     out = handle_return_from_systempay(request)
     return HttpResponse('OK')
 
