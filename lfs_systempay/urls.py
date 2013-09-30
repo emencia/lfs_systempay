@@ -7,6 +7,9 @@ urlpatterns = patterns('lfs_systempay.views',
     url(r'^systempay_delayed_(?P<uid>[\w\d]+)$', 'systempay_delayed', name='systempay-delayed-0'),
     url(r'^systempay_delayed_(?P<uid>[\w\d]+)/$', 'systempay_delayed', name='systempay-delayed'),
 
+    url(r'^systempay_test_delayed_(?P<uid>[\w\d]+)$', 'systempay_test_delayed', name='systempay-test-delayed-0'),
+    url(r'^systempay_test_delayed_(?P<uid>[\w\d]+)/$', 'systempay_test_delayed', name='systempay-test-delayed'),
+
 
     url(r'^systempay_return/$', 'systempay_return_url', name='systempay-return-url', kwargs={'action': 'return'}),
     url(r'^systempay_return_cancel/$', 'systempay_return_url', name='systempay-return-cancel-url',

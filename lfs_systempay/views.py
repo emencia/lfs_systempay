@@ -74,11 +74,18 @@ def systempay_return_url(request, action=''):
 def systempay_delayed(request, uid):
     if uid != settings.SYSTEMPAY_BACK_URL_SECRET_UID:
         raise Http404
-    out = handle_return_from_systempay(request)
+    out = handle_return_from_systempay(request, is_test=False)
+    return HttpResponse('OK')
+
+@csrf_exempt
+def systempay_test_delayed(request, uid):
+    if uid != settings.SYSTEMPAY_BACK_URL_SECRET_UID:
+        raise Http404
+    out = handle_return_from_systempay(request, is_test=True)
     return HttpResponse('OK')
 
 
-def handle_return_from_systempay(request):
+def handle_return_from_systempay(request, is_test=True):
     logger.info('Call from Systempay')
     logger.debug('req.get: %s' % request.GET)
     logger.debug('req.post: %s' % request.POST)
@@ -121,7 +128,7 @@ def handle_return_from_systempay(request):
             }
     logger.info(simplejson.dumps(data))
 
-    check_signature = generate_signature(data)
+    check_signature = generate_signature(data, is_test)
 
     signature_valid = data['signature'] != check_signature
     if not signature_valid:
@@ -130,6 +137,7 @@ def handle_return_from_systempay(request):
         raise Http404
 
     out = {'status': 'SUCCESS'}
+    order = None
     try:
         # get the order
         order = Order.objects.get(Q(state=SUBMITTED) | Q(state=PAYMENT_FAILED), pk=data['vads_order_id'])

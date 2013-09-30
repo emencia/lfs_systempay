@@ -11,13 +11,16 @@ import logging
 logger = logging.getLogger("systempay")
 
 
-def generate_signature(data):
+def generate_signature(data, is_test):
     signature = []
     sorted_keys = sorted(data.keys())
     for key in sorted_keys:
         if key.startswith('vads_') and data[key]:
             signature.append('%s' % data['key'])
-    signature.append(getattr(settings, 'SYSTEMPAY_CERTIFICATE', ''))
+    if is_test:
+        signature.append(getattr(settings, 'SYSTEMPAY_TEST_CERTIFICATE', ''))
+    else:
+        signature.append(getattr(settings, 'SYSTEMPAY_CERTIFICATE', ''))
     signature = '+'.join(signature)
     return hashlib.sha1(signature).hexdigest()
 
