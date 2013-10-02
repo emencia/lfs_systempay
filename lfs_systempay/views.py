@@ -58,6 +58,13 @@ def wait_for_redirect(request, order_id):
     data['order'] = order
 
     logger.info('wait_for_redirect: Prepared request for Systempay. order.id: %s, %s' % (order.pk, data))
+
+    is_test = False
+    if settings.SYSTEMPAY_MODE == 'TEST':
+        is_test = True
+
+    data['is_test'] = is_test
+
     return render(request, 'lfs_systempay/wait_for_redirect.html', data)
 
 

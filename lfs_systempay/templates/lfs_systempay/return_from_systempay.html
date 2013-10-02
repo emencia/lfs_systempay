@@ -38,6 +38,10 @@
             <p class="central-message">{% trans "Payment has been refused!" %}</p>
         {% endif %}
 
+        {% if action == 'invalid_request' %}
+            <p class="central-message">{% trans "Payment request was invalid. Please contact the shop administrator." %}</p>
+        {% endif %}
+
         {% if action == 'return' %}
             <p class="central-message">{% trans "You've been redirected back from payment processor." %}</p>
         {% endif %}

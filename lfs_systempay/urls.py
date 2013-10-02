@@ -22,4 +22,6 @@ urlpatterns = patterns('lfs_systempay.views',
         kwargs={'action': 'refused'}),
     url(r'^systempay_return_success/$', 'systempay_return_url', name='systempay-return-success-url',
         kwargs={'action': 'success'}),
+    url(r'^systempay_return_invalid_request/$', 'systempay_return_url', name='systempay-return-invalid_request-url',
+        kwargs={'action': 'invalid_request'}),
 )
