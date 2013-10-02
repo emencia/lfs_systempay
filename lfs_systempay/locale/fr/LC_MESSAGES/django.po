@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LFS Systempay\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-02 22:20+0200\n"
+"PO-Revision-Date: 2013-10-02 22:29+0100\n"
+"Last-Translator: Maciej Wiśniowski <maciek@orbitvu.com>\n"
+"Language-Team: Natcam <hello@natcam.pl>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: processor.py:17
+msgid "It was not possibe to process your request. Possibly your session has expired."
+msgstr "Ce n'était pas possibe pour traiter votre demande. Peut-être votre session a expiré."
+
+#: views.py:179
+#, python-format
+msgid "Data returned from Systempay: %s"
+msgstr "Les données renvoyées à partir de Systempay: %s"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:1
+#: templates/lfs_systempay/customer_order_paid_body_html.html:7
+#: templates/lfs_systempay/customer_order_paid_subject.html:1
+msgid "We have received payment for your order"
+msgstr "Nous avons reçu le paiement de votre commande"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:3
+msgid "Order details"
+msgstr "Références de commande"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:5
+#: templates/lfs_systempay/customer_order_paid_body_html.html:12
+msgid "General"
+msgstr "Général"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:7
+#: templates/lfs_systempay/customer_order_paid_body_html.html:17
+msgid "Customer name"
+msgstr "Nom du client"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:8
+#: templates/lfs_systempay/customer_order_paid_body.html:22
+#: templates/lfs_systempay/customer_order_paid_body_html.html:23
+msgid "Date"
+msgstr "Date d'"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:8
+#: templates/lfs_systempay/customer_order_paid_body.html:22
+#: templates/lfs_systempay/customer_order_paid_body_html.html:26
+msgid "DATETIME_FORMAT"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:9
+#: templates/lfs_systempay/customer_order_paid_body_html.html:31
+msgid "E-mail"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:10
+#: templates/lfs_systempay/customer_order_paid_body_html.html:37
+msgid "State"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:11
+#: templates/lfs_systempay/customer_order_paid_body_html.html:45
+msgid "Phone"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:12
+#: templates/lfs_systempay/customer_order_paid_body.html:27
+#: templates/lfs_systempay/customer_order_paid_body.html:34
+#: templates/lfs_systempay/customer_order_paid_body_html.html:51
+#: templates/lfs_systempay/customer_order_paid_body_html.html:76
+msgid "Total"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:14
+#: templates/lfs_systempay/customer_order_paid_body.html:32
+msgid "Payment method"
+msgstr "Mode de paiement"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:18
+msgid "Order"
+msgstr "Commander"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:21
+msgid "Order id"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:23
+#: templates/lfs_systempay/customer_order_paid_body_html.html:64
+msgid "SKU"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:24
+#: templates/lfs_systempay/customer_order_paid_body_html.html:67
+msgid "Name"
+msgstr ""
+
+#: templates/lfs_systempay/customer_order_paid_body.html:25
+#: templates/lfs_systempay/customer_order_paid_body_html.html:70
+msgid "Amount"
+msgstr "Montant"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:26
+#: templates/lfs_systempay/customer_order_paid_body_html.html:73
+msgid "Price"
+msgstr "Prix"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:30
+#: templates/lfs_systempay/customer_order_paid_body_html.html:131
+msgid "Voucher"
+msgstr "Chèque"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:31
+msgid "Shipping method"
+msgstr "Mode de livraison"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:35
+#: templates/lfs_systempay/customer_order_paid_body_html.html:184
+msgid "Inclusive VAT"
+msgstr "TVA inclus"
+
+#: templates/lfs_systempay/customer_order_paid_body.html:37
+msgid "Message"
+msgstr "Un message"
+
+#: templates/lfs_systempay/customer_order_paid_body_html.html:148
+msgid "Shipping"
+msgstr "Livraison"
+
+#: templates/lfs_systempay/customer_order_paid_body_html.html:163
+msgid "Payment"
+msgstr "Paiement"
+
+#: templates/lfs_systempay/order_failed_body.html:1
+msgid "Payment for order has failed in Systempay"
+msgstr "Paiement de la commande a échoué dans Systempay"
+
+#: templates/lfs_systempay/order_failed_body.html:3
+msgid "Error message"
+msgstr "Message d'erreur"
+
+#: templates/lfs_systempay/order_failed_subject.html:1
+msgid "Order payment failed"
+msgstr "Paiement de la commande n'a pas"
+
+#: templates/lfs_systempay/return_from_systempay.html:5
+#: templates/lfs_systempay/return_from_systempay.html:11
+#: templates/lfs_systempay/return_from_systempay.html:17
+msgid "Thank you!"
+msgstr "Je vous remercie!"
+
+#: templates/lfs_systempay/return_from_systempay.html:20
+msgid "Your payment is now being processed. You'll get e-mail notification as soon as it is complete"
+msgstr "Votre paiement est en cours de traitement. Vous aurez notification par e-mail dès qu'elle est terminée"
+
+#: templates/lfs_systempay/return_from_systempay.html:23
+msgid "Invalid transaction"
+msgstr "Transaction invalide"
+
+#: templates/lfs_systempay/return_from_systempay.html:26
+msgid "Payment has been cancelled!"
+msgstr "Le paiement a été annulé!"
+
+#: templates/lfs_systempay/return_from_systempay.html:30
+msgid "Payment has not been processed due to rejected authorization request!"
+msgstr "Paiement n'a pas été traitée en raison de la demande d'autorisation rejetée!"
+
+#: templates/lfs_systempay/return_from_systempay.html:34
+msgid "Payment has not been processed due to the internal error of payment platform!"
+msgstr "Paiement n'a pas été traitée en raison de l'erreur interne de la plateforme de paiement!"
+
+#: templates/lfs_systempay/return_from_systempay.html:38
+msgid "Payment has been refused!"
+msgstr "Le paiement a été refusé!"
+
+#: templates/lfs_systempay/return_from_systempay.html:42
+msgid "Payment request was invalid. Please contact the shop administrator."
+msgstr "Demande de paiement n'était pas valide. S'il vous plaît contactez l'administrateur à la boutique"
+
+#: templates/lfs_systempay/return_from_systempay.html:46
+msgid "You've been redirected back from payment processor."
+msgstr "Vous avez été redirigé de processeur de paiement."
+
+#: templates/lfs_systempay/return_from_systempay.html:51
+msgid "Go back to shop"
+msgstr "Retour à la boutique"
+
+#: templates/lfs_systempay/wait_for_redirect.html:5
+msgid "Redirecting to Systempay"
+msgstr "Redirection vers SYSTEMPAY"
+
+#: templates/lfs_systempay/wait_for_redirect.html:25
+msgid "Systempay"
+msgstr ""
+
+#: templates/lfs_systempay/wait_for_redirect.html:29
+msgid "Please wait while you're redirected to Systempay."
+msgstr "S'il vous plaît patienter pendant que vous êtes redirigé vers SYSTEMPAY."
+
+#: templates/lfs_systempay/wait_for_redirect.html:30
+msgid "or click here"
+msgstr "ou cliquez ici"
+
+#: templates/lfs_systempay/wait_for_redirect.html:30
+msgid "to be redirected immediately."
+msgstr "pour être redirigé immédiatement."
+
+#: templates/lfs_systempay/wait_for_redirect.html:73
+msgid "It is not possible to pay for this order. Are you sure that it is not paid already? Please contact shop administration if you consider this an error."
+msgstr "Il n'est pas possible de payer pour cette commande. Etes-vous sûr que ce n'est pas déjà payé? S'il vous plaît contacter l'administration de la boutique si vous considérez que c'est une erreur."
+
