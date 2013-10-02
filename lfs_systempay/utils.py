@@ -22,7 +22,7 @@ def generate_signature(data, is_test):
     else:
         signature.append(getattr(settings, 'SYSTEMPAY_CERTIFICATE', ''))
     signature = '+'.join(signature)
-    gen_sig = hashlib.sha1(signature).hexdigest()
+    gen_sig = hashlib.sha1(signature.encode('utf-8')).hexdigest()
 
     logger.debug('keys: %s' % (', '.join(sorted_keys)))
     logger.debug('signature: %s' % signature)
