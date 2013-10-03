@@ -50,8 +50,9 @@ def prepare_systempay_form(request, order):
     out['vads_cust_city'] = (order.invoice_address.city or '')[:63]
     out['vads_cust_zip'] = (order.invoice_address.zip_code or '')[:63]
 
-    out['vads_order_id'] = order.pk
+    out['vads_order_id'] = order.number
     out['vads_order_info'] = '[%s] %s %s' % (order.number, order.customer_firstname, order.customer_lastname)
+    out['vads_order_info2'] = order.pk
 
     out['vads_site_id'] = getattr(settings, 'SYSTEMPAY_SITE_ID', '')
 

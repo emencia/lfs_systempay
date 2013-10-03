@@ -126,6 +126,7 @@ def handle_return_from_systempay(request, is_test=True):
             'vads_version': pd.get('vads_version'),
             'vads_order_id': pd.get('vads_order_id'),
             'vads_order_info': pd.get('vads_order_info'),
+            'vads_order_info2': pd.get('vads_order_info2'),
             'vads_threeds_enrolled': pd.get('vads_threeds_enrolled'),
             'vads_threeds_cavv': pd.get('vads_threeds_cavv'),
             'vads_threeds_eci': pd.get('vads_threeds_eci'),
@@ -147,10 +148,10 @@ def handle_return_from_systempay(request, is_test=True):
     order = None
     try:
         # get the order
-        order = Order.objects.get(Q(state=SUBMITTED) | Q(state=PAYMENT_FAILED), pk=data['vads_order_id'])
+        order = Order.objects.get(Q(state=SUBMITTED) | Q(state=PAYMENT_FAILED), pk=data['vads_order_info2'])
     except Order.DoesNotExist:
         try:
-            logger.error((u'Systempay return url: Order does not exists: %s' % (data['vads_order_id'])).encode('utf-8'))
+            logger.error((u'Systempay return url: Order does not exists: %s' % (data['vads_order_info2'])).encode('utf-8'))
         except Exception as e:
             print e
     else:
