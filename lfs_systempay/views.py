@@ -164,6 +164,7 @@ def handle_return_from_systempay(request, is_test=True):
         if data['vads_result'] == '00':  # success
             order.state = PAID
             order.save()
+            logger.info('sending order paid signal')
             lfs.core.signals.order_paid.send({"order": order, "request": request})
         else:
             out['status'] = 'ERROR'
