@@ -15,7 +15,7 @@ def generate_signature(data, is_test):
     signature = []
     sorted_keys = sorted(data.keys())
     for key in sorted_keys:
-        if key.startswith('vads_') and not key == 'vads_order_info':
+        if key.startswith('vads_'):
             signature.append('%s' % data[key])
     if is_test:
         signature.append(getattr(settings, 'SYSTEMPAY_TEST_CERTIFICATE', ''))
