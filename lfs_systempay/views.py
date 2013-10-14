@@ -67,6 +67,7 @@ def systempay_return_url(request, action=''):
         This view is used to show return landing page for user that is redirected back from systempay to our shop.
         This view is used both in case of succes or failure of the payment (this is identified by action parameter)
     """
+    logger.info('Return from Systempay. Action: %s' % action)
     return render(request, 'lfs_systempay/return_from_systempay.html', {'action': action})
 
 
