@@ -11,15 +11,23 @@ import logging
 logger = logging.getLogger("systempay")
 
 
-def generate_signature(data):
+def generate_signature(data, is_test):
     signature = []
     sorted_keys = sorted(data.keys())
     for key in sorted_keys:
-        if key.startswith('vads_') and data[key]:
-            signature.append('%s' % data['key'])
-    signature.append(getattr(settings, 'SYSTEMPAY_CERTIFICATE', ''))
+        if key.startswith('vads_'):
+            signature.append('%s' % data[key])
+    if is_test:
+        signature.append(getattr(settings, 'SYSTEMPAY_TEST_CERTIFICATE', ''))
+    else:
+        signature.append(getattr(settings, 'SYSTEMPAY_CERTIFICATE', ''))
     signature = '+'.join(signature)
-    return hashlib.sha1(signature).hexdigest()
+    gen_sig = hashlib.sha1(signature.encode('utf-8')).hexdigest()
+
+    logger.debug('keys: %s' % (', '.join(sorted_keys)))
+    logger.debug('signature: %s' % signature)
+    logger.debug('generated signature: %s' % signature)
+    return gen_sig
 
 
 def prepare_systempay_form(request, order):
@@ -42,8 +50,9 @@ def prepare_systempay_form(request, order):
     out['vads_cust_city'] = (order.invoice_address.city or '')[:63]
     out['vads_cust_zip'] = (order.invoice_address.zip_code or '')[:63]
 
-    out['vads_order_id'] = order.pk
-    out['vads_order_info'] = '[%s] %s %s' % (order.number, order.firstname, order.lastname)
+    out['vads_order_id'] = order.number
+    out['vads_order_info'] = '[%s] %s %s' % (order.number, order.customer_firstname, order.customer_lastname)
+    out['vads_order_info2'] = order.pk
 
     out['vads_site_id'] = getattr(settings, 'SYSTEMPAY_SITE_ID', '')
 
@@ -61,18 +70,18 @@ def prepare_systempay_form(request, order):
     # payment URL is called. Please try and abide by the 6 characters length
     out['vads_trans_id'] = '%06d' % (order.pk - (order.pk // 899999) * 899999)
 
-    out['vads_url_cancel'] = reverse('systempay-return-cancel-url')
-    out['vads_url_error'] = reverse('systempay-return-error-url')
-    out['vads_url_referral'] = reverse('systempay-return-referral-url')
-    out['vads_url_refused'] = reverse('systempay-return-refused-url')
-    out['vads_url_success'] = reverse('systempay-return-success-url')
-    out['vads_url_return'] = reverse('systempay-return-url')
+    out['vads_url_cancel'] = 'http://%s%s' % (site.domain, reverse('systempay-return-cancel-url'))
+    out['vads_url_error'] = 'http://%s%s' % (site.domain, reverse('systempay-return-error-url'))
+    out['vads_url_referral'] = 'http://%s%s' % (site.domain, reverse('systempay-return-referral-url'))
+    out['vads_url_refused'] = 'http://%s%s' % (site.domain,  reverse('systempay-return-refused-url'))
+    out['vads_url_success'] = 'http://%s%s' % (site.domain, reverse('systempay-return-success-url'))
+    out['vads_url_return'] = 'http://%s%s' % (site.domain, reverse('systempay-return-url'))
     out['vads_version'] = 'V2'
     out['vads_return_mode'] = 'NONE'
     out['vads_payment_config'] = 'SINGLE'
     out['vads_payment_cards'] = ''
     out['vads_page_action'] = 'PAYMENT'
 
-    out['signature'] = generate_signature(out)
+    out['signature'] = generate_signature(out, settings.SYSTEMPAY_MODE == 'TEST')
 
     return out
