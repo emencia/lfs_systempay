@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse
 
 # Load logger
 import logging
+from lfs_systempay.models import SystempayTransaction
+
 logger = logging.getLogger("systempay")
 
 
@@ -35,6 +37,9 @@ def prepare_systempay_form(request, order):
     site = Site.objects.get_current()
 
     amount = order.price
+
+    sys_trans = SystempayTransaction.get_next_transaction(order)
+
     # convert to cents
     out['vads_amount'] = '%d' % (amount * 100)
     out['vads_contrib'] = 'LFS'
@@ -68,7 +73,8 @@ def prepare_systempay_form(request, order):
     # The 900000 to 999999 bracket is not allowed.
     # Note: a value with a length under 6 characters generates an error when the
     # payment URL is called. Please try and abide by the 6 characters length
-    out['vads_trans_id'] = '%06d' % (order.pk - (order.pk // 899999) * 899999)
+    #out['vads_trans_id'] = '%06d' % (order.pk - (order.pk // 899999) * 899999)
+    out['vads_trans_id'] = '%06d' % sys_trans.uid
 
     out['vads_url_cancel'] = 'http://%s%s' % (site.domain, reverse('systempay-return-cancel-url'))
     out['vads_url_error'] = 'http://%s%s' % (site.domain, reverse('systempay-return-error-url'))

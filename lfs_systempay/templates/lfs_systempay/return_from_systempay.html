@@ -55,5 +55,7 @@
 
 {% block google-analytics-tracking %}{% endblock %}
 {% block google-analytics-ecommerce %}
-    {% google_analytics_ecommerce %}
+    {% if action == 'success' %}
+        {% google_analytics_ecommerce %}
+    {% endif %}
 {% endblock %}
