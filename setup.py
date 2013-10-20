@@ -27,5 +27,6 @@ setup(name='lfs-systempay',
       dependency_links=[],
       install_requires=[
         'setuptools',
+        'itsdangerous'
       ],
       )

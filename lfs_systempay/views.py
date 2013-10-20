@@ -10,6 +10,8 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
+from itsdangerous import URLSafeSerializer
+
 import lfs
 from lfs.checkout.settings import CHECKOUT_TYPE_AUTH
 from lfs.order.models import Order
@@ -25,12 +27,15 @@ import logging
 logger = logging.getLogger("systempay")
 
 
-def wait_for_redirect(request, order_id):
+def wait_for_redirect(request, order_id, payment_config):
     """ We have to submit special form to Systempay using POST request, in order to redirect user to Systempay pages.
         This view displays 'Wait for redirect...' page that submits hidden form automatically.
 
         This page might be used after user clicks order link in e-mail
     """
+    s = URLSafeSerializer(settings.SECRET_KEY)
+    payment_config_dict = s.loads(payment_config)
+
     shop = lfs.core.utils.get_default_shop()
     if request.user.is_anonymous() and \
        shop.checkout_type == CHECKOUT_TYPE_AUTH:
@@ -52,7 +57,8 @@ def wait_for_redirect(request, order_id):
     elif order.session != customer.session:
         raise Http404
 
-    data = prepare_systempay_form(request, order)
+    data = prepare_systempay_form(request, order, payment_config_dict['first'], payment_config_dict['count'],
+                                  payment_config_dict['period'])
     data['transaction_url'] = getattr(settings, 'SYSTEMPAY_TRANSACTION_URL',
                                        'https://systempay.cyberpluspaiement.com/vads-payment/')
     data['order'] = order

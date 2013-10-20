@@ -32,7 +32,7 @@ def generate_signature(data, is_test):
     return gen_sig
 
 
-def prepare_systempay_form(request, order):
+def prepare_systempay_form(request, order, first, count, period):
     out = {}
     site = Site.objects.get_current()
 
@@ -84,7 +84,11 @@ def prepare_systempay_form(request, order):
     out['vads_url_return'] = 'http://%s%s' % (site.domain, reverse('systempay-return-url'))
     out['vads_version'] = 'V2'
     out['vads_return_mode'] = 'NONE'
-    out['vads_payment_config'] = 'SINGLE'
+
+    out['vads_payment_config'] = 'MULTI'
+    if count == 1:
+        out['vads_payment_config'] = 'SINGLE'
+
     out['vads_payment_cards'] = ''
     out['vads_page_action'] = 'PAYMENT'
 
