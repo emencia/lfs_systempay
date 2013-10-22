@@ -85,9 +85,12 @@ def prepare_systempay_form(request, order, first, count, period):
     out['vads_version'] = 'V2'
     out['vads_return_mode'] = 'NONE'
 
-    out['vads_payment_config'] = 'MULTI'
     if count == 1:
         out['vads_payment_config'] = 'SINGLE'
+    else:
+        fmt_first = int(first * 100)
+        out['vads_payment_config'] = 'MULTI:first={0:.0f};count={1:.0f};period={2:.0f}'.format(fmt_first, count, period)
+        #out['vads_capture_delay'] = 0
 
     out['vads_payment_cards'] = ''
     out['vads_page_action'] = 'PAYMENT'

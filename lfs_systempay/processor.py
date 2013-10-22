@@ -40,7 +40,7 @@ class SystempayPaymentMethodProcessor(PaymentMethodProcessor):
         payment_config = s.dumps({'first': first, 'count': count, 'period': period})
 
         return reverse('systempay-wait-for-redirect', kwargs={'order_id': self.order.pk,
-                                                              'payment_config': payment_config}),
+                                                              'payment_config': payment_config})
 
     def get_pay_link(self):
         site = Site.objects.get_current()
