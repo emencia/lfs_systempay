@@ -26,9 +26,13 @@
     {% if order %}
         <form class="systempay" method="post" action="{{ transaction_url }}">
             <p class="central-message">
-                {% trans "Please wait while you're redirected to Systempay." %}
-                <input type="submit" value="{% trans "or click here" %}" /> {% trans "to be redirected immediately." %}
-
+                {% if not is_test %}
+                    {% trans "Please wait while you're redirected to Systempay." %}
+                    <input type="submit" value="{% trans "or click here" %}" /> {% trans "to be redirected immediately." %}
+                {% else %}
+                    {% trans "You're in test mode so you have to click the button below to" %}
+                    <input type="submit" value="{% trans "go to Systempay" %}" />
+                {% endif %}
 
                 <input type="hidden" name="vads_action_mode" value="{{ vads_action_mode }}" />
                 <input type="hidden" name="vads_amount" value="{{ vads_amount }}" />
