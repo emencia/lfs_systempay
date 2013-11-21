@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.db.models import SET_NULL
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 
@@ -8,7 +9,7 @@ from lfs.order.models import Order
 
 
 class SystempayTransaction(models.Model):
-    order = models.ForeignKey(Order, verbose_name=_('Order'))
+    order = models.ForeignKey(Order, verbose_name=_('Order'), null=True, on_delete=SET_NULL)
     uid = models.CharField(_('uid'), max_length=10, blank=True, db_index=True)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     created_day = models.DateField(_('Created day'))
@@ -27,7 +28,7 @@ class SystempayTransaction(models.Model):
         return trans
 
     def __unicode__(self):
-        return u'%s - %s' % (self.pk, self.order.number)
+        return u'%s - %s - %s' % (self.pk, self.order.number, self.uid)
 
     class Meta:
         verbose_name = 'Systempay Transaction'
