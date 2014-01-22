@@ -4,4 +4,8 @@
 
 {{ error }}
 
+{% if vads_extra_result_msg %}{% trans "Extra information about error" %}: {{ vads_extra_result_msg }}{% endif %}
+
+__________________________
+
 {% include "lfs/mail/order_received_mail.txt" %}

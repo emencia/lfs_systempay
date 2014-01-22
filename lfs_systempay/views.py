@@ -19,7 +19,7 @@ from lfs.order.settings import SUBMITTED, PAID, PAYMENT_FAILED, PAYMENT_FLAGGED
 from lfs.customer import utils as customer_utils
 import lfs.core.utils
 
-from .error_codes import CODES
+from .error_codes import VADS_RESULT_CODES, VADS_EXTRA_RESULT_CODES
 from .utils import prepare_systempay_form, generate_signature
 
 # Load logger
@@ -168,14 +168,20 @@ def handle_return_from_systempay(request, is_test=True):
         from_email = shop.from_email
         to = shop.get_notification_emails()
 
+        vads_extra_result_msg = VADS_EXTRA_RESULT_CODES.get(data['vads_extra_result'], '')
         if data['vads_result'] == '00':  # success
             order.state = PAID
             order.save()
             logger.info('sending order paid signal')
+            logger.info('vads_estra_result: %s' % vads_extra_result_msg)
             lfs.core.signals.order_paid.send({"order": order, "request": request})
         else:
             out['status'] = 'ERROR'
-            logger.error('Payment error: %s' % CODES.get(data['vads_result'], '-'))
+            logger.error('Payment error: %s' % VADS_RESULT_CODES.get(data['vads_result'], '-'))
+            if data['vads_result'] in ['05', '30']:
+                logger.error('Extra information: %s' % vads_extra_result_msg)
+            else:
+                vads_extra_result_msg = ''
             order.state = PAYMENT_FAILED
             order.save()
 
@@ -184,8 +190,9 @@ def handle_return_from_systempay(request, is_test=True):
             body = render_to_string('lfs_systempay/order_failed_body.html',
                                     {'order': order,
                                      'shop': shop,
-                                     'error_message': CODES.get(data['vads_result'], '-'),
-                                     'error': _('Data returned from Systempay: %s') % (data)})
+                                     'error_message': VADS_RESULT_CODES.get(data['vads_result'], '-'),
+                                     'vads_extra_result_msg': vads_extra_result_msg,
+                                     'error': _('Data returned from Systempay: %s') % data})
 
             mail = EmailMultiAlternatives(subject=subject, body=body, from_email=from_email, to=to)
             mail.send(fail_silently=True)
